@@ -3,6 +3,8 @@ myenv/
 venv/
 ENV/
 
+node_modules/
+
 # Python cache
 __pycache__/
 *.pyc
