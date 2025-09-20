@@ -26,7 +26,7 @@ import {
 
 type AppView = 'home' | 'student' | 'teacher' | 'admin' | 'attendance';
 
-export default function App() {
+export default function App() {  
   const [currentView, setCurrentView] = useState<AppView>('home');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +42,26 @@ export default function App() {
       setIsDarkMode(systemPrefersDark);
     }
   }, []);
+
+  //connect to backend
+  useEffect(() => {
+    fetch("http://localhost:8000/")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  // Example function in React
+  const markAttendance = async (studentId: number, method: string) => {
+    const res = await fetch("http://localhost:8000/attendance/mark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ student_id: 12, method: "QR" })
+    });
+    const data = await res.json();
+    alert(data.status);
+  };
 
   // Apply theme to document
   useEffect(() => {
